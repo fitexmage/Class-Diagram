@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head> 
+        <title>Major Setting</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <style id="css">
+            body {
+                font: 300 18px 'Helvetica Neue', Helvetica;
+            }
+        </style>
+    </head>
+    <body>
+        <h2 align='center'>Major Selection</h2><br/>
+        <div class="major">
+            <table>
+            <tr th:each="major: ${majorList}">
+                <td><a th:text="${major.getMajor()}" th:href="@{'/diagram?major=' + ${major.getId()}}"/></td>
+            </tr>
+            </table>
+        </div>
+        <br/>
+        <a href="/">Back</a>
+    </body>
+</html>

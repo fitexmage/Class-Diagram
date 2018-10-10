@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head> 
+        <title>Prerequisite Setting</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <style id="css">
+            body {
+                font: 300 18px 'Helvetica Neue', Helvetica;
+                text-align: center;
+            }
+
+            table {
+                border-collapse:collapse;
+                margin: auto;
+            }
+
+            table td, table th 
+            {
+                border:1px solid #98bf21;
+                padding:10px 20px 10px 20px;
+            }
+
+            table th 
+            {
+                font-size:1.1em;
+                padding-top:5px;
+                padding-bottom:4px;
+                background-color:#003399;
+                color:#ffffff;
+            }
+
+            table tr.alt td 
+            {
+                color:#000000;
+                background-color:#EAF2D3;
+            }
+        </style>
+    </head>
+    <body>
+        <h2 align='center'>Prerequisite Setting</h2><br/>
+        <div class="prerequisite">
+            <table>
+                <tr>
+                    <th>Course Name</th>
+                    <th>Relationship</th>
+                    <th></th>
+                </tr>
+                <tr th:each="link: ${linkList}">
+                    <td th:text="${link.getSource()}"></td>
+                    <td th:text="${link.relationshipToString()}"></td>
+                    <td><a th:href="@{'/delete-prerequisite?major=' + ${major.getId()} + '&amp;course=' + ${course.getName()} + '&amp;prerequisite=' + ${link.getSource()}}">Delete</a></td>
+                </tr>
+                <form action="/add-prerequisite">
+                    <tr>
+                        <td>
+                            <select name="prerequisite">
+                                <option th:each="course: ${major.getCourseList()}" th:value="${course.getName()}" th:text="${course.getName()}"/>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="relationship">
+                                <option value="1" >AND</option>
+                                <option value="2" >OR</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="hidden" name="major" th:value="${major.getId()}"/>
+                            <input type="hidden" name="course" th:value="${course.getName()}"/>
+                            <input type="submit" value="Add"/>
+                        </td>
+                    </tr>
+                </form>
+            </table>
+        </div>
+        <br/>
+        <a th:href="@{'/course-setting?major=' + ${major.getId()}}">Back</a>
+    </body>
+</html>

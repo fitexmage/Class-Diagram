@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head> 
+        <title>Major Setting</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <style id="css">
+            body {
+                font: 300 18px 'Helvetica Neue', Helvetica;
+                text-align: center;
+            }
+
+            table {
+                border-collapse:collapse;
+                margin: auto;
+            }
+
+            table td, table th 
+            {
+                border:1px solid #98bf21;
+                padding:10px 20px 10px 20px;
+            }
+
+            table th 
+            {
+                font-size:1.1em;
+                padding-top:5px;
+                padding-bottom:4px;
+                background-color:#003399;
+                color:#ffffff;
+            }
+
+            table tr.alt td 
+            {
+                color:#000000;
+                background-color:#EAF2D3;
+            }
+        </style>
+    </head>
+    <body>
+        <h2 align='center'>Major Setting</h2><br/>
+        <div class="major">
+            <table>
+                <tr>
+                    <th>Major Name</th>
+                    <th></th>
+                </tr>
+                <tr th:each="major: ${majorList}">
+                    <td><a th:text="${major.getMajor()}" th:href="@{'/course-setting?major=' + ${major.getId()}}"/></td>
+                    <td><a th:href="@{'/delete-major?major=' + ${major.getId()}}">Delete</a></td>
+                </tr>
+                <form action="/add-major">
+                    <td>
+                        <input type="text" name="major" size="50"/>
+                    </td>
+                    <td>
+                        <input type="submit" value="Add"/>
+                    </td>
+                </form>
+            </table>
+        </div>
+        <br/>
+        <a href="/">Back</a>
+    </body>
+</html>
